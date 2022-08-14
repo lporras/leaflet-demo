@@ -1,28 +1,30 @@
-<%= form_with(model: place) do |form| %>
-  <% if place.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+<div data-controller="map">
+  <%= form_with(model: place) do |form| %>
+    <% if place.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
 
-      <ul>
-        <% place.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% place.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div data-map-target="container" style="min-height: 300px"></div>
+
+    <%= form.hidden_field :address, data: {"map-target": "address"} %>
+    <%= form.hidden_field :latitude, data: {"map-target": "latitude"} %>
+    <%= form.hidden_field :longitude, data: {"map-target": "longitude"} %>
+
+    <div>
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div data-controller="map">
-    <%= form.hidden_field :address %>
-    <%= form.hidden_field :latitude %>
-    <%= form.hidden_field :longitude %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

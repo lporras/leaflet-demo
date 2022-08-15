@@ -19,7 +19,10 @@ export default class extends Controller {
 
     const search = new GeoSearch.GeoSearchControl({
       style: 'bar',
-      provider: provider
+      provider: provider,
+      marker: {
+        draggable: true,
+      },
     });
 
     this.map.addControl(search);
